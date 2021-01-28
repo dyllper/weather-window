@@ -10,7 +10,7 @@ const GlobalStyle = createGlobalStyle`
   html {
     font-size: 62.5%;
 
-    --font-default: 1.8rem;
+    --font-default: 1.6rem;
     --font-sm: 1.4rem;
     --font-md: 2.4rem;
     --font-lg: 3.1rem;
@@ -21,7 +21,7 @@ const GlobalStyle = createGlobalStyle`
     --color-glass: rgba(255, 255, 255, 0.3);
     --color-blue-dark: #3B69E0;
     --color-blue-light: #00BFFE;
-    --color-orange: #E48047;
+    --color-orange: #EA6E4B;
 
     --spacing-sm: 1.8rem;
     --spacing-md: 2.7rem;
@@ -32,6 +32,9 @@ const GlobalStyle = createGlobalStyle`
   body {
     height: 100vh;
     width: 100vw;
+    font: "Montserrat";
+    font-family: 'Montserrat';
+    font-size: var(--font-default);
   }
 
   a {
@@ -53,11 +56,3 @@ function MyApp({ Component, pageProps }) {
 }
 
 export default MyApp;
-
-18;
-
-16;
-20;
-31;
-40;
-54;

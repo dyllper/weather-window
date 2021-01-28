@@ -2,7 +2,7 @@ import Head from 'next/head';
 import styled from 'styled-components';
 
 const StyledContainer = styled.div`
-  background-image: url('/images/${(props) => props.image || 'main'}.jpg');
+  background-image: url('/backgrounds/${(props) => props.image || 'main'}.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
