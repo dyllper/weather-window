@@ -50,6 +50,10 @@ const StyledForecastContainer = styled.section`
   gap: 1.5rem;
 `;
 
+const StyledCondition = styled.p`
+  margin-top: -0.8rem;
+`;
+
 const StyledTemp = styled.span`
   font-weight: bold;
   color: ${(props) =>
@@ -94,7 +98,7 @@ export default function Weather() {
               height={75}
               width={75}
             />
-            <p>Partly Cloudy</p>
+            <StyledCondition>Partly Cloudy</StyledCondition>
             <p>
               <StyledTemp tempType="high">48</StyledTemp> /{' '}
               <StyledTemp tempType="low">34</StyledTemp> F
@@ -110,7 +114,7 @@ export default function Weather() {
               height={75}
               width={75}
             />
-            <p>Cloudy</p>
+            <StyledCondition>Cloudy</StyledCondition>
             <p>
               <StyledTemp tempType="high">59</StyledTemp> /{' '}
               <StyledTemp tempType="low">50</StyledTemp> F
@@ -126,7 +130,7 @@ export default function Weather() {
               height={75}
               width={75}
             />
-            <p>Rain</p>
+            <StyledCondition>Rain</StyledCondition>
             <p>
               <StyledTemp tempType="high">64</StyledTemp> /{' '}
               <StyledTemp tempType="low">36</StyledTemp> F
@@ -142,7 +146,7 @@ export default function Weather() {
               height={75}
               width={75}
             />
-            <p>Clear</p>
+            <StyledCondition>Clear</StyledCondition>
             <p>
               <StyledTemp tempType="high">52</StyledTemp> /{' '}
               <StyledTemp tempType="low">30</StyledTemp> F
@@ -158,7 +162,7 @@ export default function Weather() {
               height={75}
               width={75}
             />
-            <p>Clear</p>
+            <StyledCondition>Clear</StyledCondition>
             <p>
               <StyledTemp tempType="high">54</StyledTemp> /{' '}
               <StyledTemp tempType="low">37</StyledTemp> F
