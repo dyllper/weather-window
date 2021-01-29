@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
 
@@ -69,6 +68,7 @@ const StyledButton = styled.button`
   border: none;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   font-size: var(--font-md);
+  cursor: pointer;
 `;
 
 export default function Home() {

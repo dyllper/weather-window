@@ -10,7 +10,7 @@ const GlobalStyle = createGlobalStyle`
   html {
     font-size: 62.5%;
 
-    --font-default: 1.6rem;
+    --font-default: 1.8rem;
     --font-sm: 1.4rem;
     --font-md: 2.4rem;
     --font-lg: 3.1rem;
@@ -32,7 +32,6 @@ const GlobalStyle = createGlobalStyle`
   body {
     height: 100vh;
     width: 100vw;
-    font: "Montserrat";
     font-family: 'Montserrat';
     font-size: var(--font-default);
   }
