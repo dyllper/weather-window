@@ -1,14 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
+import axios from 'axios';
 
 import Layout from '../components/Layout';
-import {
-  LocationActions,
-  useLocationDispatch,
-} from '../context/locationContext';
-
-import { fetchWeatherByCoords } from '../utilities/apiUtilities';
+import { WeatherActions, useWeatherDispatch } from '../context/weatherContext';
+import Weather from './weather';
 
 const StyledContainer = styled.main`
   width: 900px;
@@ -85,9 +82,8 @@ const StyledButton = styled.button`
 
 export default function Home() {
   const router = useRouter();
-  const locationDispatch = useLocationDispatch();
+  const weatherDispatch = useWeatherDispatch();
   const [coords, setCoords] = useState(null);
-  const [city, setCity] = useState(null);
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -97,7 +93,6 @@ export default function Home() {
           lat: position.coords.latitude,
           lon: position.coords.longitude,
         });
-        locationDispatch({ type: LocationActions.SET_COORDS, payload: coords });
       });
     } else {
       setError(
@@ -106,30 +101,28 @@ export default function Home() {
     }
   }, []);
 
-  const handleInput = (e) => {
-    setCity(e.target.value);
-  };
-
   const handleClick = () => {
-    if (!city && !coords) {
-      setError(
-        'Please enter a city name or allow this application to access your location.'
-      );
-      return;
-    }
-
     if (coords) {
-      const weatherData = fetchWeatherByCoords(coords);
-      console.log(weatherData);
-      if (weatherData.error) {
-        setError(weatherData.error);
-      }
-    }
+      const url = 'https://api.openweathermap.org/data/2.5/onecall';
+      const params = {
+        appid: process.env.NEXT_PUBLIC_API_KEY,
+        lat: coords.lat,
+        lon: coords.lon,
+        exclude: 'minutely,hourly',
+        units: 'imperial',
+      };
 
-    if (city) {
-      locationDispatch({ type: LocationActions.SET_CITY, payload: city });
+      axios
+        .get(url, { params })
+        .then((response) => {
+          weatherDispatch({
+            type: WeatherActions.SET_WEATHER,
+            payload: response.data,
+          });
+          router.push('/weather');
+        })
+        .catch((err) => setError(err));
     }
-    router.push('/weather');
   };
 
   return (
@@ -140,22 +133,13 @@ export default function Home() {
           <p>Your Virtual Glimpse at the Weather</p>
         </StyledTitleContainer>
         <p>
-          This app makes use of your browser's geolocation capabilities. <br />
-          If you aren't comfortable allowing that kind of access, or want to
-          check the weather somewhere other than where you are at now, you can
-          search by City name below.
+          In order to use this application, you must allow access to your
+          browser's geolocation capabilities.
         </p>
         {error ? <StyledError>{error}</StyledError> : null}
-        <StyledInputContainer>
-          <label htmlFor="city-input">Your City</label>
-          <input
-            type="text"
-            id="city-input"
-            onChange={handleInput}
-            placeholder="Enter a city name"
-          />
-        </StyledInputContainer>
-        <StyledButton onClick={handleClick}>Open the Window</StyledButton>
+        <StyledButton onClick={handleClick} disabled={coords === null}>
+          Open the Window
+        </StyledButton>
       </StyledContainer>
     </Layout>
   );

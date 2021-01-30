@@ -3,6 +3,9 @@ import styled from 'styled-components';
 
 import GlassPanel from '../GlassPanel';
 
+import { convertTimeToLocale } from '../../utilities/dateUtils';
+import { getPathForWeatherIcon } from '../../utilities/iconUtils';
+
 const StyledForecastPanel = styled(GlassPanel)`
   height: 20rem;
   width: 12.8rem;
@@ -25,22 +28,31 @@ const StyledTemp = styled.span`
       : 'var(--color-blue-dark)'};
 `;
 
-export default function ForecastPanel() {
+export default function ForecastPanel({ forecast }) {
   return (
     <StyledForecastPanel>
-      <p>Fri 01-29</p>
+      <p>{convertTimeToLocale(forecast.dt)}</p>
       <Image
-        src="/weather-icons/cloudy.svg"
-        alt="Cloudy"
+        src={getPathForWeatherIcon(forecast.weather[0].icon)}
+        alt={forecast.weather[0].main}
         height={75}
         width={75}
       />
-      <StyledCondition>Cloudy</StyledCondition>
+      <StyledCondition>{forecast.weather[0].main}</StyledCondition>
       <p>
-        <StyledTemp tempType="high">59</StyledTemp> /{' '}
-        <StyledTemp tempType="low">50</StyledTemp> &#176;F
+        <StyledTemp tempType="high">{Math.ceil(forecast.temp.max)}</StyledTemp>{' '}
+        / <StyledTemp tempType="low">{Math.ceil(forecast.temp.min)}</StyledTemp>{' '}
+        &#176;F
       </p>
-      <p>Precip: 10%</p>
+      <p>
+        Precip:{' '}
+        {forecast.rain
+          ? Math.ceil(forecast.rain)
+          : forecast.snow
+          ? Math.ceil(forecast.snow)
+          : '0'}
+        %
+      </p>
     </StyledForecastPanel>
   );
 }

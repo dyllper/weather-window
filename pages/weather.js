@@ -1,10 +1,12 @@
 import styled from 'styled-components';
 
-import { LocationActions, useLocationState } from '../context/locationContext';
+import { useWeatherState } from '../context/weatherContext';
 
 import Layout from '../components/Layout';
 import CurrentConditions from '../components/CurrentConditions';
 import Forecast from '../components/Forecast';
+
+import { convertTimeToLocale } from '../utilities/dateUtils';
 
 const StyledContainer = styled.main`
   width: 900px;
@@ -37,17 +39,19 @@ const StyledContainer = styled.main`
 `;
 
 export default function Weather() {
-  const locationState = useLocationState();
+  const weatherState = useWeatherState();
+  const { weather } = weatherState;
+
   return (
     <Layout bgImage="rain" title={`Weather for city name`}>
       <StyledContainer>
         <h1>Weather Window</h1>
-        <h2>{locationState.city}</h2>
-        <h3>Wed 01-27</h3>
+        <h2>Current Conditions</h2>
+        <h3>{convertTimeToLocale(weather.current.dt)}</h3>
 
         <CurrentConditions />
 
-        <Forecast />
+        <Forecast forecastArray={weather.daily} />
       </StyledContainer>
     </Layout>
   );

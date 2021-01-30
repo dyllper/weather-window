@@ -1,6 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 
-import { LocationProvider } from '../context/locationContext';
+import { WeatherProvider } from '../context/weatherContext';
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -49,10 +49,10 @@ const GlobalStyle = createGlobalStyle`
 
 function MyApp({ Component, pageProps }) {
   return (
-    <LocationProvider>
+    <WeatherProvider>
       <GlobalStyle />
       <Component {...pageProps} />
-    </LocationProvider>
+    </WeatherProvider>
   );
 }
 

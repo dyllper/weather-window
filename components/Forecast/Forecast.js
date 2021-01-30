@@ -11,11 +11,12 @@ const StyledForecastContainer = styled.section`
 
 const testArray = [1, 2, 3, 4, 5];
 
-export default function Forecast() {
+export default function Forecast({ forecastArray }) {
+  forecastArray.splice(-3);
   return (
     <StyledForecastContainer>
-      {testArray.map((num) => (
-        <ForecastPanel key={num} />
+      {forecastArray.map((forecast) => (
+        <ForecastPanel key={forecast.dt} forecast={forecast} />
       ))}
     </StyledForecastContainer>
   );
