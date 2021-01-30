@@ -1,5 +1,6 @@
-import Image from 'next/image';
 import styled from 'styled-components';
+
+import { LocationActions, useLocationState } from '../context/locationContext';
 
 import Layout from '../components/Layout';
 import CurrentConditions from '../components/CurrentConditions';
@@ -36,11 +37,12 @@ const StyledContainer = styled.main`
 `;
 
 export default function Weather() {
+  const locationState = useLocationState();
   return (
     <Layout bgImage="rain" title={`Weather for city name`}>
       <StyledContainer>
         <h1>Weather Window</h1>
-        <h2>city name</h2>
+        <h2>{locationState.city}</h2>
         <h3>Wed 01-27</h3>
 
         <CurrentConditions />

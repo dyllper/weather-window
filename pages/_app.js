@@ -1,5 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
 
+import { LocationProvider } from '../context/locationContext';
+
 const GlobalStyle = createGlobalStyle`
   * {
     box-sizing: border-box;
@@ -47,10 +49,10 @@ const GlobalStyle = createGlobalStyle`
 
 function MyApp({ Component, pageProps }) {
   return (
-    <>
+    <LocationProvider>
       <GlobalStyle />
       <Component {...pageProps} />
-    </>
+    </LocationProvider>
   );
 }
 
