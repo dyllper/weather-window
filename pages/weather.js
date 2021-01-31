@@ -6,7 +6,7 @@ import Layout from '../components/Layout';
 import CurrentConditions from '../components/CurrentConditions';
 import Forecast from '../components/Forecast';
 
-import { convertTimeToLocale } from '../utilities/dateUtils';
+import { convertDateToLocale } from '../utilities/dateUtils';
 
 const StyledContainer = styled.main`
   width: 900px;
@@ -46,8 +46,7 @@ export default function Weather() {
     <Layout bgImage="rain" title={`Weather for city name`}>
       <StyledContainer>
         <h1>Weather Window</h1>
-        <h2>Current Conditions</h2>
-        <h3>{convertTimeToLocale(weather.current.dt)}</h3>
+        <h3>{convertDateToLocale(weather.current.dt)}</h3>
 
         <CurrentConditions />
 

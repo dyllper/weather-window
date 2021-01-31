@@ -3,6 +3,10 @@ import styled from 'styled-components';
 
 import GlassPanel from '../GlassPanel';
 
+import { useWeatherState } from '../../context/weatherContext';
+import { getPathForWeatherIcon } from '../../utilities/iconUtils';
+import { convertTimeToLocale } from '../../utilities/dateUtils';
+
 const StyledCurrentConditionsContainer = styled.section`
   height: 30rem;
   width: 70rem;
@@ -82,49 +86,54 @@ const StyledSunriseInfo = styled.div`
 `;
 
 export default function CurrentConditions() {
+  const weatherState = useWeatherState();
+  const { weather } = weatherState;
+
   return (
     <StyledCurrentConditionsContainer>
       <StyledGlassContainer>
         <StyledCurrentTemp>
-          48<small> &#176;F</small>
+          {Math.ceil(weather.current.temp)}
+          <small> &#176;F</small>
         </StyledCurrentTemp>
         <StyledTempSummary>
           <p>
-            Feels Like: <span>46</span>&#176;
+            Feels Like: <span>{Math.ceil(weather.current.feels_like)}</span>
+            &#176;
           </p>
           <p>
-            Low: <span>46</span>&#176;
+            Low: <span>{Math.ceil(weather.daily[0].temp.min)}</span>&#176;
           </p>
         </StyledTempSummary>
       </StyledGlassContainer>
 
       <StyledGlassContainer>
         <Image
-          src="/weather-icons/clear-day.svg"
-          alt="Clear"
+          src={getPathForWeatherIcon(weather.current.weather[0].icon)}
+          alt={weather.current.weather[0].main}
           height={130}
           width={130}
         />
         <StyledSummary>
-          <span>Sunny</span>
-          <span>Clouds: 0%</span>
-          <span>Wind: 3mph</span>
-          <span>Visibility: 6 miles</span>
+          <span>{weather.current.weather[0].main}</span>
+          <span>Clouds: {weather.current.clouds}%</span>
+          <span>Wind: {Math.ceil(weather.current.wind_speed)}mph</span>
+          <span>Visibility: {weather.current.visibility}</span>
         </StyledSummary>
       </StyledGlassContainer>
 
       <StyledGlassContainer>
         <Image
           src="/weather-icons/weather-station.svg"
-          alt="Clear"
+          alt="Weather Station Antenna"
           height={60}
           width={60}
         />
         <StyledSummary>
-          <span>Pressure: 10</span>
-          <span>Humidity: 1%</span>
-          <span>UV Index: 0</span>
-          <span>Dew Point: 33.53&#176;</span>
+          <span>Pressure: {weather.current.pressure}</span>
+          <span>Humidity: {weather.current.humidity}%</span>
+          <span>UV Index: {weather.current.uvi}</span>
+          <span>Dew Point: {weather.current.dew_point}&#176;</span>
         </StyledSummary>
       </StyledGlassContainer>
 
@@ -132,20 +141,20 @@ export default function CurrentConditions() {
         <StyledSunriseInfo>
           <Image
             src="/weather-icons/sunrise.svg"
-            alt="Clear"
+            alt="Sunrise"
             height={50}
             width={50}
           />
-          <span>Sunrise: 6:13 AM</span>
+          <span>Sunrise: {convertTimeToLocale(weather.current.sunrise)}</span>
         </StyledSunriseInfo>
         <StyledSunriseInfo>
           <Image
             src="/weather-icons/sunset.svg"
-            alt="Clear"
+            alt="Sunset"
             height={50}
             width={50}
           />
-          <span>Sunset: 6:13 AM</span>
+          <span>Sunset: {convertTimeToLocale(weather.current.sunset)}</span>
         </StyledSunriseInfo>
       </StyledSunrisePanel>
     </StyledCurrentConditionsContainer>

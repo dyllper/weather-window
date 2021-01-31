@@ -5,7 +5,8 @@ import axios from 'axios';
 
 import Layout from '../components/Layout';
 import { WeatherActions, useWeatherDispatch } from '../context/weatherContext';
-import Weather from './weather';
+
+import { tempWeather } from '../utilities/tempData';
 
 const StyledContainer = styled.main`
   width: 900px;
@@ -102,27 +103,29 @@ export default function Home() {
   }, []);
 
   const handleClick = () => {
-    if (coords) {
-      const url = 'https://api.openweathermap.org/data/2.5/onecall';
-      const params = {
-        appid: process.env.NEXT_PUBLIC_API_KEY,
-        lat: coords.lat,
-        lon: coords.lon,
-        exclude: 'minutely,hourly',
-        units: 'imperial',
-      };
+    weatherDispatch({ type: WeatherActions.SET_WEATHER, payload: tempWeather });
+    router.push('/weather');
+    // if (coords) {
+    //   const url = 'https://api.openweathermap.org/data/2.5/onecall';
+    //   const params = {
+    //     appid: process.env.NEXT_PUBLIC_API_KEY,
+    //     lat: coords.lat,
+    //     lon: coords.lon,
+    //     exclude: 'minutely,hourly',
+    //     units: 'imperial',
+    //   };
 
-      axios
-        .get(url, { params })
-        .then((response) => {
-          weatherDispatch({
-            type: WeatherActions.SET_WEATHER,
-            payload: response.data,
-          });
-          router.push('/weather');
-        })
-        .catch((err) => setError(err));
-    }
+    //   axios
+    //     .get(url, { params })
+    //     .then((response) => {
+    //       weatherDispatch({
+    //         type: WeatherActions.SET_WEATHER,
+    //         payload: response.data,
+    //       });
+    //       router.push('/weather');
+    //     })
+    //     .catch((err) => setError(err));
+    // }
   };
 
   return (

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import GlassPanel from '../GlassPanel';
 
-import { convertTimeToLocale } from '../../utilities/dateUtils';
+import { convertDateToLocale } from '../../utilities/dateUtils';
 import { getPathForWeatherIcon } from '../../utilities/iconUtils';
 
 const StyledForecastPanel = styled(GlassPanel)`
@@ -31,7 +31,7 @@ const StyledTemp = styled.span`
 export default function ForecastPanel({ forecast }) {
   return (
     <StyledForecastPanel>
-      <p>{convertTimeToLocale(forecast.dt)}</p>
+      <p>{convertDateToLocale(forecast.dt)}</p>
       <Image
         src={getPathForWeatherIcon(forecast.weather[0].icon)}
         alt={forecast.weather[0].main}
