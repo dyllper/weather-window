@@ -94,7 +94,7 @@ export default function CurrentConditions() {
       <StyledGlassContainer>
         <StyledCurrentTemp>
           {Math.ceil(weather.current.temp)}
-          <small> &#176;F</small>
+          <small> &#176;{weather.units === 'imperial' ? 'F' : 'C'}</small>
         </StyledCurrentTemp>
         <StyledTempSummary>
           <p>
@@ -117,7 +117,10 @@ export default function CurrentConditions() {
         <StyledSummary>
           <span>{weather.current.weather[0].main}</span>
           <span>Clouds: {weather.current.clouds}%</span>
-          <span>Wind: {Math.ceil(weather.current.wind_speed)}mph</span>
+          <span>
+            Wind: {Math.ceil(weather.current.wind_speed)}
+            {weather.units === 'imperial' ? ' mph' : ' m/s'}
+          </span>
           <span>Visibility: {weather.current.visibility}</span>
         </StyledSummary>
       </StyledGlassContainer>

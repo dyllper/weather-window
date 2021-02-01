@@ -64,6 +64,23 @@ const StyledInputContainer = styled.div`
   }
 `;
 
+const StyledUnitsContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: var(--spacing-sm);
+
+  input {
+    margin-right: 0.5rem;
+    height: 2rem;
+    width: 2rem;
+  }
+
+  label {
+    margin-right: var(--spacing-sm);
+  }
+`;
+
 const StyledError = styled.p`
   color: #ff0000;
   font-size: var(--font-md);
@@ -85,6 +102,8 @@ export default function Home() {
   const router = useRouter();
   const weatherDispatch = useWeatherDispatch();
   const [coords, setCoords] = useState(null);
+  const [city, setCity] = useState(null);
+  const [measurementUnit, setMeasurementUnit] = useState('imperial');
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -102,6 +121,10 @@ export default function Home() {
     }
   }, []);
 
+  const onUnitSelectionChange = (event) => {
+    setMeasurementUnit(event.target.value);
+  };
+
   const handleClick = () => {
     weatherDispatch({ type: WeatherActions.SET_WEATHER, payload: tempWeather });
     router.push('/weather');
@@ -112,15 +135,16 @@ export default function Home() {
     //     lat: coords.lat,
     //     lon: coords.lon,
     //     exclude: 'minutely,hourly',
-    //     units: 'imperial',
+    //     units: measurementUnit,
     //   };
 
     //   axios
     //     .get(url, { params })
     //     .then((response) => {
+    //       const weatherInfo = { ...response.data, units: measurementUnit };
     //       weatherDispatch({
     //         type: WeatherActions.SET_WEATHER,
-    //         payload: response.data,
+    //         payload: weatherInfo,
     //       });
     //       router.push('/weather');
     //     })
@@ -136,10 +160,27 @@ export default function Home() {
           <p>Your Virtual Glimpse at the Weather</p>
         </StyledTitleContainer>
         <p>
-          In order to use this application, you must allow access to your
-          browser's geolocation capabilities.
+          This application makes use of your browser's geolocation data to
+          retrieve a 5 day forecast. If you are not comfortable allowing that
+          access, or are interested in what the weather looks like elsewhere,
+          you can search by city name and still see current conditions.
         </p>
         {error ? <StyledError>{error}</StyledError> : null}
+        <div>
+          Select your preferred unit of measurement:
+          <StyledUnitsContainer onChange={onUnitSelectionChange}>
+            <input
+              type="radio"
+              name="unit"
+              id="imperial"
+              value="imperial"
+              defaultChecked
+            />
+            <label htmlFor="imperial"> Imperial</label>
+            <input type="radio" name="unit" id="metric" value="metric" />
+            <label htmlFor="metric"> Metric</label>
+          </StyledUnitsContainer>
+        </div>
         <StyledButton onClick={handleClick} disabled={coords === null}>
           Open the Window
         </StyledButton>

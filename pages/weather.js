@@ -50,7 +50,10 @@ export default function Weather() {
 
         <CurrentConditions />
 
-        <Forecast forecastArray={weather.daily} />
+        <Forecast
+          forecastArray={weather.daily}
+          measurementUnit={weather.units}
+        />
       </StyledContainer>
     </Layout>
   );

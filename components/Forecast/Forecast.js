@@ -22,14 +22,18 @@ const StyledPanelContainer = styled.div`
   gap: 1.5rem;
 `;
 
-export default function Forecast({ forecastArray }) {
+export default function Forecast({ forecastArray, measurementUnit }) {
   const fiveDayForecast = forecastArray.slice(1, 6);
   return (
     <StyledForecastContainer>
       <h3>5 Day Forecast</h3>
       <StyledPanelContainer>
         {fiveDayForecast.map((forecast) => (
-          <ForecastPanel key={forecast.dt} forecast={forecast} />
+          <ForecastPanel
+            key={forecast.dt}
+            forecast={forecast}
+            measurementUnit={measurementUnit}
+          />
         ))}
       </StyledPanelContainer>
     </StyledForecastContainer>

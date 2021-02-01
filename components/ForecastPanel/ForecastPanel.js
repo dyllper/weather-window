@@ -28,7 +28,7 @@ const StyledTemp = styled.span`
       : 'var(--color-blue-dark)'};
 `;
 
-export default function ForecastPanel({ forecast }) {
+export default function ForecastPanel({ forecast, measurementUnit }) {
   return (
     <StyledForecastPanel>
       <p>{convertDateToLocale(forecast.dt)}</p>
@@ -42,7 +42,7 @@ export default function ForecastPanel({ forecast }) {
       <p>
         <StyledTemp tempType="high">{Math.ceil(forecast.temp.max)}</StyledTemp>{' '}
         / <StyledTemp tempType="low">{Math.ceil(forecast.temp.min)}</StyledTemp>{' '}
-        &#176;F
+        &#176;{measurementUnit === 'imperial' ? 'F' : 'C'}
       </p>
       <p>
         Precip:{' '}
