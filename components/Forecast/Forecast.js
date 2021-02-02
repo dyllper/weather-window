@@ -23,6 +23,7 @@ const StyledPanelContainer = styled.div`
 `;
 
 export default function Forecast({ forecastArray, measurementUnit }) {
+  //The first entry in the array is for the current day's weahter, which we don't want to include in the forecast.
   const fiveDayForecast = forecastArray.slice(1, 6);
   return (
     <StyledForecastContainer>

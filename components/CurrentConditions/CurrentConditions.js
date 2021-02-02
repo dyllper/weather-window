@@ -3,7 +3,6 @@ import styled from 'styled-components';
 
 import GlassPanel from '../GlassPanel';
 
-import { useWeatherState } from '../../context/weatherContext';
 import { getPathForWeatherIcon } from '../../utilities/iconUtils';
 import { convertTimeToLocale } from '../../utilities/dateUtils';
 
@@ -85,10 +84,7 @@ const StyledSunriseInfo = styled.div`
   }
 `;
 
-export default function CurrentConditions() {
-  const weatherState = useWeatherState();
-  const { weather } = weatherState;
-
+export default function CurrentConditions({ weather }) {
   return (
     <StyledCurrentConditionsContainer>
       <StyledGlassContainer>

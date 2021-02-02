@@ -23,7 +23,7 @@ const GlobalStyle = createGlobalStyle`
     --color-glass: rgba(255, 255, 255, 0.3);
     --color-blue-dark: #3B69E0;
     --color-blue-light: #00BFFE;
-    --color-orange: #EA6E4B;
+    --color-orange: #DE6023;
 
     --spacing-sm: 1.8rem;
     --spacing-md: 2.7rem;
