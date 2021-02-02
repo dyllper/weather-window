@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
@@ -113,11 +112,11 @@ export default function CurrentConditions({ weather }) {
         initial={{ opacity: 0, scale: 0 }}
         animate={{ opacity: 1, scale: 1 }}
       >
-        <Image
+        <img
           src={getPathForWeatherIcon(weather.current.weather[0].icon)}
           alt={weather.current.weather[0].main}
-          height={130}
-          width={130}
+          height="130"
+          width="130"
         />
         <StyledSummary>
           <span>{weather.current.weather[0].main}</span>
@@ -135,11 +134,11 @@ export default function CurrentConditions({ weather }) {
         initial={{ opacity: 0, scale: 0 }}
         animate={{ opacity: 1, scale: 1 }}
       >
-        <Image
+        <img
           src="/weather-icons/weather-station.svg"
           alt="Weather Station Antenna"
-          height={60}
-          width={60}
+          height="60"
+          width="60"
         />
         <StyledSummary>
           <span>Pressure: {weather.current.pressure}</span>
@@ -155,20 +154,20 @@ export default function CurrentConditions({ weather }) {
         animate={{ opacity: 1, scale: 1 }}
       >
         <StyledSunriseInfo>
-          <Image
+          <img
             src="/weather-icons/sunrise.svg"
             alt="Sunrise"
-            height={50}
-            width={50}
+            height="50"
+            width="50"
           />
           <span>Sunrise: {convertTimeToLocale(weather.current.sunrise)}</span>
         </StyledSunriseInfo>
         <StyledSunriseInfo>
-          <Image
+          <img
             src="/weather-icons/sunset.svg"
             alt="Sunset"
-            height={50}
-            width={50}
+            height="50"
+            width="50"
           />
           <span>Sunset: {convertTimeToLocale(weather.current.sunset)}</span>
         </StyledSunriseInfo>

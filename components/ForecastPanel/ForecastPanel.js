@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
@@ -37,11 +36,11 @@ export default function ForecastPanel({ forecast, measurementUnit, duration }) {
       animate={{ opacity: 1, y: 0 }}
     >
       <p>{convertDateToLocale(forecast.dt)}</p>
-      <Image
+      <img
         src={getPathForWeatherIcon(forecast.weather[0].icon)}
         alt={forecast.weather[0].main}
-        height={75}
-        width={75}
+        height="75"
+        width="75"
       />
       <StyledCondition>{forecast.weather[0].main}</StyledCondition>
       <p>
