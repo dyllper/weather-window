@@ -58,6 +58,7 @@ const StyledError = styled.p`
   color: #ff0000;
   font-size: var(--font-lg);
   text-align: center;
+  margin: var(--spacing-md);
 `;
 
 export default function Weather() {
@@ -80,17 +81,19 @@ export default function Weather() {
           </Link>
         </StyledBackButton>
         <h1>Weather Window</h1>
-        <h3>{convertDateToLocale(weather.current.dt)}</h3>
 
         {weather && weather.current ? (
-          <CurrentConditions weather={weather} />
+          <div>
+            <h3>{convertDateToLocale(weather.current.dt)}</h3>
+            <CurrentConditions weather={weather} />
+          </div>
         ) : (
           <StyledError>
             Failed to retrieve current weather data from server.
           </StyledError>
         )}
 
-        {weather.daily ? (
+        {weather?.daily ? (
           <Forecast
             forecastArray={weather.daily}
             measurementUnit={weather.units}
