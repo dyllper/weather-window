@@ -1,12 +1,13 @@
 import Image from 'next/image';
 import styled from 'styled-components';
+import { motion } from 'framer-motion';
 
 import GlassPanel from '../GlassPanel';
 
 import { convertDateToLocale } from '../../utilities/dateUtils';
 import { getPathForWeatherIcon } from '../../utilities/iconUtils';
 
-const StyledForecastPanel = styled(GlassPanel)`
+const StyledForecastPanel = styled(motion.custom(GlassPanel))`
   height: 20rem;
   width: 12.8rem;
   flex-direction: column;
@@ -28,9 +29,14 @@ const StyledTemp = styled.span`
       : 'var(--color-blue-dark)'};
 `;
 
-export default function ForecastPanel({ forecast, measurementUnit }) {
+export default function ForecastPanel({ forecast, measurementUnit, duration }) {
+  console.log(duration);
   return (
-    <StyledForecastPanel>
+    <StyledForecastPanel
+      transition={{ ease: 'easeInOut', duration: duration, delay: 1.25 }}
+      initial={{ opacity: 0, y: 100 }}
+      animate={{ opacity: 1, y: 0 }}
+    >
       <p>{convertDateToLocale(forecast.dt)}</p>
       <Image
         src={getPathForWeatherIcon(forecast.weather[0].icon)}

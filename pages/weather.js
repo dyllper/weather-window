@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import styled from 'styled-components';
+import { motion } from 'framer-motion';
 
 import { useWeatherState } from '../context/weatherContext';
 
@@ -9,8 +10,9 @@ import CurrentConditions from '../components/CurrentConditions';
 import Forecast from '../components/Forecast';
 
 import { convertDateToLocale } from '../utilities/dateUtils';
+import { getPathForBgFromWeatherIcon } from '../utilities/iconUtils';
 
-const StyledContainer = styled.main`
+const StyledContainer = styled(motion.main)`
   display: relative;
   width: 900px;
   height: 900px;
@@ -25,13 +27,6 @@ const StyledContainer = styled.main`
   h1 {
     font-size: var(--font-title);
     margin-bottom: var(--spacing-md);
-  }
-
-  h2 {
-    font-size: var(--font-xlg);
-    font-weight: normal;
-    text-transform: uppercase;
-    margin-bottom: var(--spacing-sm);
   }
 
   h3 {
@@ -65,9 +60,21 @@ export default function Weather() {
   const weatherState = useWeatherState();
   const { weather } = weatherState;
 
+  const getBgImage = () => {
+    if (weather) {
+      return getPathForBgFromWeatherIcon(weather.current.weather[0].icon);
+    } else {
+      return null;
+    }
+  };
+
   return (
-    <Layout bgImage="rain" title={`Weather for city name`}>
-      <StyledContainer>
+    <Layout bgImage={getBgImage()} title={`Weather for city name`}>
+      <StyledContainer
+        transition={{ ease: 'easeInOut', duration: 0.5 }}
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+      >
         <StyledBackButton>
           <Link href="/">
             <a>
@@ -83,10 +90,10 @@ export default function Weather() {
         <h1>Weather Window</h1>
 
         {weather && weather.current ? (
-          <div>
+          <>
             <h3>{convertDateToLocale(weather.current.dt)}</h3>
             <CurrentConditions weather={weather} />
-          </div>
+          </>
         ) : (
           <StyledError>
             Failed to retrieve current weather data from server.

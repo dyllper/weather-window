@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-
+import { motion } from 'framer-motion';
 import ForecastPanel from '../ForecastPanel';
 
 const StyledForecastContainer = styled.section`
@@ -27,13 +27,20 @@ export default function Forecast({ forecastArray, measurementUnit }) {
   const fiveDayForecast = forecastArray.slice(1, 6);
   return (
     <StyledForecastContainer>
-      <h3>5 Day Forecast</h3>
+      <motion.h3
+        transition={{ ease: 'easeInOut', duration: 0.5, delay: 1.25 }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+      >
+        5 Day Forecast
+      </motion.h3>
       <StyledPanelContainer>
-        {fiveDayForecast.map((forecast) => (
+        {fiveDayForecast.map((forecast, index) => (
           <ForecastPanel
             key={forecast.dt}
             forecast={forecast}
             measurementUnit={measurementUnit}
+            duration={(1 + index) * 0.3}
           />
         ))}
       </StyledPanelContainer>

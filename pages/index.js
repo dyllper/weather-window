@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
+import { motion } from 'framer-motion';
 import axios from 'axios';
 
 import Layout from '../components/Layout';
@@ -8,7 +9,7 @@ import { WeatherActions, useWeatherDispatch } from '../context/weatherContext';
 
 import { tempWeather } from '../utilities/tempData';
 
-const StyledContainer = styled.main`
+const StyledContainer = styled(motion.main)`
   width: 900px;
   height: 900px;
   border-radius: 24px;
@@ -22,7 +23,8 @@ const StyledContainer = styled.main`
   p {
     font-size: var(--font-default);
     line-height: 2.6rem;
-    text-align: center;
+    text-align: left;
+    text-indent: 1.5rem;
   }
 `;
 
@@ -37,7 +39,7 @@ const StyledTitleContainer = styled.header`
     margin-bottom: var(--spacing-sm);
   }
 
-  p {
+  small {
     font-size: var(--font-sm);
     text-align: left;
   }
@@ -104,40 +106,44 @@ export default function Home() {
   };
 
   const handleClick = () => {
-    // weatherDispatch({ type: WeatherActions.SET_WEATHER, payload: tempWeather });
-    // router.push('/weather');
-    if (coords) {
-      const url = 'https://api.openweathermap.org/data/2.5/onecall';
-      const params = {
-        appid: process.env.NEXT_PUBLIC_API_KEY,
-        lat: coords.lat,
-        lon: coords.lon,
-        exclude: 'minutely,hourly',
-        units: measurementUnit,
-      };
+    weatherDispatch({ type: WeatherActions.SET_WEATHER, payload: tempWeather });
+    router.push('/weather');
+    // if (coords) {
+    //   const url = 'https://api.openweathermap.org/data/2.5/onecall';
+    //   const params = {
+    //     appid: process.env.NEXT_PUBLIC_API_KEY,
+    //     lat: coords.lat,
+    //     lon: coords.lon,
+    //     exclude: 'minutely,hourly',
+    //     units: measurementUnit,
+    //   };
 
-      axios
-        .get(url, { params })
-        .then((response) => {
-          const weatherInfo = { ...response.data, units: measurementUnit };
-          weatherDispatch({
-            type: WeatherActions.SET_WEATHER,
-            payload: weatherInfo,
-          });
-          router.push('/weather');
-        })
-        .catch(() => {
-          setError('Failed to retrieve weather data from server.');
-        });
-    }
+    //   axios
+    //     .get(url, { params })
+    //     .then((response) => {
+    //       const weatherInfo = { ...response.data, units: measurementUnit };
+    //       weatherDispatch({
+    //         type: WeatherActions.SET_WEATHER,
+    //         payload: weatherInfo,
+    //       });
+    //       router.push('/weather');
+    //     })
+    //     .catch(() => {
+    //       setError('Failed to retrieve weather data from server.');
+    //     });
+    // }
   };
 
   return (
     <Layout title="Weather Window">
-      <StyledContainer>
+      <StyledContainer
+        transition={{ ease: 'easeInOut', duration: 0.75 }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+      >
         <StyledTitleContainer>
           <h1>Weather Window</h1>
-          <p>Your Virtual Glimpse at the Weather</p>
+          <small>Your Virtual Glimpse at the Weather</small>
         </StyledTitleContainer>
         <p>
           In order to use this application, you must allow access to your

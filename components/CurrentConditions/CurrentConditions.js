@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import styled from 'styled-components';
+import { motion } from 'framer-motion';
 
 import GlassPanel from '../GlassPanel';
 
@@ -13,9 +14,18 @@ const StyledCurrentConditionsContainer = styled.section`
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 1rem;
   margin-bottom: var(--spacing-md);
+
+  @media (max-width: 680px) {
+    height: 62rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
-const StyledGlassContainer = styled(GlassPanel)`
+const StyledGlassContainer = styled(motion.custom(GlassPanel))`
   height: 14.5rem;
   width: 34.5rem;
   justify-content: center;
@@ -87,7 +97,11 @@ const StyledSunriseInfo = styled.div`
 export default function CurrentConditions({ weather }) {
   return (
     <StyledCurrentConditionsContainer>
-      <StyledGlassContainer>
+      <StyledGlassContainer
+        transition={{ type: 'spring', duration: 0.75, delay: 0.5 }}
+        initial={{ opacity: 0, scale: 0 }}
+        animate={{ opacity: 1, scale: 1 }}
+      >
         <StyledCurrentTemp>
           {Math.ceil(weather.current.temp)}
           <small> &#176;{weather.units === 'imperial' ? 'F' : 'C'}</small>
@@ -103,7 +117,11 @@ export default function CurrentConditions({ weather }) {
         </StyledTempSummary>
       </StyledGlassContainer>
 
-      <StyledGlassContainer>
+      <StyledGlassContainer
+        transition={{ type: 'spring', duration: 0.75, delay: 0.5 }}
+        initial={{ opacity: 0, scale: 0 }}
+        animate={{ opacity: 1, scale: 1 }}
+      >
         <Image
           src={getPathForWeatherIcon(weather.current.weather[0].icon)}
           alt={weather.current.weather[0].main}
@@ -121,7 +139,11 @@ export default function CurrentConditions({ weather }) {
         </StyledSummary>
       </StyledGlassContainer>
 
-      <StyledGlassContainer>
+      <StyledGlassContainer
+        transition={{ type: 'spring', duration: 0.75, delay: 0.8 }}
+        initial={{ opacity: 0, scale: 0 }}
+        animate={{ opacity: 1, scale: 1 }}
+      >
         <Image
           src="/weather-icons/weather-station.svg"
           alt="Weather Station Antenna"
@@ -136,7 +158,11 @@ export default function CurrentConditions({ weather }) {
         </StyledSummary>
       </StyledGlassContainer>
 
-      <StyledSunrisePanel>
+      <StyledSunrisePanel
+        transition={{ type: 'spring', duration: 0.75, delay: 0.8 }}
+        initial={{ opacity: 0, scale: 0 }}
+        animate={{ opacity: 1, scale: 1 }}
+      >
         <StyledSunriseInfo>
           <Image
             src="/weather-icons/sunrise.svg"
