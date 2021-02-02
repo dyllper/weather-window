@@ -39,28 +39,7 @@ const StyledTitleContainer = styled.header`
 
   p {
     font-size: var(--font-sm);
-  }
-`;
-
-const StyledInputContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-
-  label {
-    font-size: var(--font-md);
-    font-weight: bold;
-    margin-bottom: 0.5rem;
-  }
-
-  input {
-    height: 4rem;
-    width: 50rem;
-    border: 1px solid #000000;
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-    font-size: var(--font-default);
+    text-align: left;
   }
 `;
 
@@ -102,7 +81,6 @@ export default function Home() {
   const router = useRouter();
   const weatherDispatch = useWeatherDispatch();
   const [coords, setCoords] = useState(null);
-  const [city, setCity] = useState(null);
   const [measurementUnit, setMeasurementUnit] = useState('imperial');
   const [error, setError] = useState(null);
 
@@ -160,10 +138,10 @@ export default function Home() {
           <p>Your Virtual Glimpse at the Weather</p>
         </StyledTitleContainer>
         <p>
-          This application makes use of your browser's geolocation data to
-          retrieve a 5 day forecast. If you are not comfortable allowing that
-          access, or are interested in what the weather looks like elsewhere,
-          you can search by city name and still see current conditions.
+          In order to use this application, you must allow access to your
+          browser's geolocation capabilities. If this is not something you are
+          comfortable with, keep an eye out for a future update that will allow
+          fetching weather data by city name!
         </p>
         {error ? <StyledError>{error}</StyledError> : null}
         <div>
