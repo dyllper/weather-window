@@ -7,8 +7,6 @@ import axios from 'axios';
 import Layout from '../components/Layout';
 import { WeatherActions, useWeatherDispatch } from '../context/weatherContext';
 
-import { tempWeather } from '../utilities/tempData';
-
 const StyledContainer = styled(motion.main)`
   width: 900px;
   height: 900px;
@@ -106,32 +104,30 @@ export default function Home() {
   };
 
   const handleClick = () => {
-    weatherDispatch({ type: WeatherActions.SET_WEATHER, payload: tempWeather });
-    router.push('/weather');
-    // if (coords) {
-    //   const url = 'https://api.openweathermap.org/data/2.5/onecall';
-    //   const params = {
-    //     appid: process.env.NEXT_PUBLIC_API_KEY,
-    //     lat: coords.lat,
-    //     lon: coords.lon,
-    //     exclude: 'minutely,hourly',
-    //     units: measurementUnit,
-    //   };
+    if (coords) {
+      const url = 'https://api.openweathermap.org/data/2.5/onecall';
+      const params = {
+        appid: process.env.NEXT_PUBLIC_API_KEY,
+        lat: coords.lat,
+        lon: coords.lon,
+        exclude: 'minutely,hourly',
+        units: measurementUnit,
+      };
 
-    //   axios
-    //     .get(url, { params })
-    //     .then((response) => {
-    //       const weatherInfo = { ...response.data, units: measurementUnit };
-    //       weatherDispatch({
-    //         type: WeatherActions.SET_WEATHER,
-    //         payload: weatherInfo,
-    //       });
-    //       router.push('/weather');
-    //     })
-    //     .catch(() => {
-    //       setError('Failed to retrieve weather data from server.');
-    //     });
-    // }
+      axios
+        .get(url, { params })
+        .then((response) => {
+          const weatherInfo = { ...response.data, units: measurementUnit };
+          weatherDispatch({
+            type: WeatherActions.SET_WEATHER,
+            payload: weatherInfo,
+          });
+          router.push('/weather');
+        })
+        .catch(() => {
+          setError('Failed to retrieve weather data from server.');
+        });
+    }
   };
 
   return (
