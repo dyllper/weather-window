@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import Image from 'next/image';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
@@ -78,11 +77,11 @@ export default function Weather() {
         <StyledBackButton>
           <Link href="/">
             <a>
-              <Image
+              <img
                 src="/back-arrow.svg"
                 alt="Go to previous page"
-                height={40}
-                width={40}
+                height="40"
+                width="40"
               />
             </a>
           </Link>
