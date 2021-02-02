@@ -14,15 +14,6 @@ const StyledCurrentConditionsContainer = styled.section`
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 1rem;
   margin-bottom: var(--spacing-md);
-
-  @media (max-width: 680px) {
-    height: 62rem;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
 `;
 
 const StyledGlassContainer = styled(motion.custom(GlassPanel))`

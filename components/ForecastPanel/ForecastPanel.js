@@ -30,7 +30,6 @@ const StyledTemp = styled.span`
 `;
 
 export default function ForecastPanel({ forecast, measurementUnit, duration }) {
-  console.log(duration);
   return (
     <StyledForecastPanel
       transition={{ ease: 'easeInOut', duration: duration, delay: 1.25 }}
